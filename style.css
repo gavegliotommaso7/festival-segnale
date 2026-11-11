@@ -219,4 +219,39 @@ h3 {
   .event-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+}.info-swiper {
+  padding-bottom: 3rem;
+}
+.info-swiper {
+  padding: 0 3rem 1rem;
+}
+
+.luogo-card {
+  overflow: hidden;
+  border: 1px solid #b7c0b7;
+  border-radius: .75rem;
+  background: #fff;
+}
+
+.luogo-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.luogo-info {
+  padding: 1.5rem;
+}
+
+.luogo-info h3 {
+  margin-top: 0;
+}
+
+.luogo-info p {
+  margin-bottom: 0;
+}
+
+.info-swiper .swiper-button-prev,
+.info-swiper .swiper-button-next {
+  color: var(--colore-primario);
 }
