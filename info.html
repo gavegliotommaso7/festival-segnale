@@ -128,6 +128,30 @@
     </article>
   </div>
 </section>
+
+<section class="content-section" aria-labelledby="titolo-meteo">
+  <h2 id="titolo-meteo">Meteo a Torino adesso</h2>
+
+  <div class="meteo-box" aria-live="polite">
+    <p id="meteo-status">Caricamento dei dati meteo...</p>
+    <div id="meteo-dati" hidden>
+      <p>Temperatura: <strong id="meteo-temperatura"></strong></p>
+      <p>Vento: <strong id="meteo-vento"></strong></p>
+      <p>Ora del dato: <strong id="meteo-ora"></strong></p>
+    </div>
+    <p class="meteo-nota">
+      Questi dati descrivono il meteo attuale a Torino e non rappresentano
+      una previsione per le date del festival.
+    </p>
+    <p class="meteo-fonte">
+      Dati meteo:
+      <a href="https://open-meteo.com/" target="_blank"
+         rel="noopener noreferrer">Open-Meteo</a>,
+      licenza CC BY 4.0.
+    </p>
+  </div>
+</section>
+
   </main>
 
   <footer class="site-footer">
@@ -151,5 +175,50 @@
     },
   });
 </script>
+
+<script>
+  async function caricaMeteo() {
+    const status = document.getElementById('meteo-status');
+    const dati = document.getElementById('meteo-dati');
+
+    const url = 'https://api.open-meteo.com/v1/forecast?latitude=45.0703&longitude=7.6869&current=temperature_2m,wind_speed_10m&timezone=Europe%2FRome';
+
+    try {
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error('Errore nella richiesta meteo');
+      }
+
+      const meteo = await response.json();
+      const corrente = meteo.current;
+
+      document.getElementById('meteo-temperatura').textContent =
+        `${corrente.temperature_2m} ${meteo.current_units.temperature_2m}`;
+
+      document.getElementById('meteo-vento').textContent =
+        `${corrente.wind_speed_10m} ${meteo.current_units.wind_speed_10m}`;
+
+      const ora = new Date(corrente.time);
+      document.getElementById('meteo-ora').textContent =
+        new Intl.DateTimeFormat('it-IT', {
+          dateStyle: 'short',
+          timeStyle: 'short'
+        }).format(ora);
+
+      status.hidden = true;
+      dati.hidden = false;
+
+    } catch (errore) {
+      console.error(errore);
+      status.textContent =
+        'Non è stato possibile caricare i dati meteo al momento.';
+    }
+  }
+
+  caricaMeteo();
+</script>
+</body>
+
 </body>
 </html>

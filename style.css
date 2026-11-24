@@ -327,3 +327,23 @@ h3 {
   outline-offset: 4px;
   border-radius: 4px;
 }
+
+.meteo-box {
+  padding: 1.5rem;
+  border: 1px solid #b7c0b7;
+  border-radius: .75rem;
+  background: #fff;
+}
+
+.meteo-box p:first-child {
+  margin-top: 0;
+}
+
+.meteo-nota,
+.meteo-fonte {
+  font-size: .9rem;
+}
+
+.meteo-nota {
+  margin-top: 1.5rem;
+}
